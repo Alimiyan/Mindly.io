@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { CardContent } from "@/components/ui/card";
 import { Header } from "@/components/ui/header";
 import { SendHorizonal } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 type Message = {
   sender: "user" | "assistant";
@@ -13,6 +14,7 @@ type Message = {
 };
 
 export default function ChatPage() {
+  const session_id = useRef(uuidv4());
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,9 +54,11 @@ export default function ChatPage() {
     controllerRef.current = controller;
 
     const eventSource = new EventSource(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/stream-chat?contents=${encodeURIComponent(
-        trimmedInput
-      )}`
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URL
+      }/stream-chat?contents=${encodeURIComponent(trimmedInput)}&session_id=${
+        session_id.current
+      }`
     );
 
     let response = "";
