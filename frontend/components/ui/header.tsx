@@ -26,9 +26,9 @@ function Header({ className }: React.ComponentProps<"div">) {
         className="px-4 py-2 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/10"
       >
         {isDark ? (
-          <Moon className="h-4 w-4 text-white" />
+          <SunMedium className="h-4 w-4 text-white" />
         ) : (
-          <SunMedium className="h-4 w-4 text-black" />
+          <Moon className="h-4 w-4 text-black" />
         )}
       </button>
     </header>
